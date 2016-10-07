@@ -3,6 +3,7 @@ FROM ubuntu
 MAINTAINER Ugochukwu Chimbo Ejikeme "ugochimbo@ugochimbo.com"
 
 ENV REFRESHED_AT 07.10.2016
+ENV SERVER_ROOT /server/http
 
 RUN apt-get update && apt-get install -y curl git unzip \
     apt-utils pkg-config autoconf g++ make openssl libssl-dev libcurl4-openssl-dev \
@@ -25,7 +26,9 @@ RUN sed -i -e "s/;clear_env\s*=\s*no/clear_env = no/g" /etc/php/7.0/fpm/pool.d/w
 WORKDIR /opt
 RUN curl -L -O https://github.com/mongodb/mongo-php-driver/releases/download/1.1.8/mongodb-1.1.8.tgz > /dev/null && \
                 tar -xzvf mongodb-1.1.8.tgz > /dev/null
+
 WORKDIR /opt/mongodb-1.1.8
+
 RUN phpize > /dev/null && ./configure > /dev/null
 RUN make > /dev/null && make install > /dev/null
 ADD nginx/mongo.ini /etc/php/7.0/conf.d/mongo.ini
@@ -38,8 +41,5 @@ RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer > /d
 # Cleanup
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-WORKDIR /server/http
+WORKDIR $SERVER_ROOT
 
-EXPOSE 80
-
-CMD ["bin/phpunit", "./tests", "--configuration", "./phpunit.dist.xml", "--coverage-text"]
