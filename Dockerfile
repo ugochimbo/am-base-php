@@ -1,6 +1,6 @@
 FROM ubuntu
 
-MAINTAINER Ugochukwu Ejikeme "ugochimbo@ugochimbo.com"
+MAINTAINER Ugochukwu Chimbo Ejikeme "ugochimbo@ugochimbo.com"
 
 ENV REFRESHED_AT 07.10.2016
 
