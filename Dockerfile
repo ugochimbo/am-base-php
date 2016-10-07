@@ -2,7 +2,7 @@ FROM ubuntu
 
 MAINTAINER Ugochukwu Ejikeme "ugochimbo@ugochimbo.com"
 
-ENV REFERESHED_AT 07.10.2016
+ENV REFRESHED_AT 07.10.2016
 
 RUN apt-get update && apt-get install -y curl git unzip \
     apt-utils pkg-config autoconf g++ make openssl libssl-dev libcurl4-openssl-dev \
